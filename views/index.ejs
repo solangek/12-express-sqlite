@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+  <script>
+
+    (function () {
+
+      // the function that triggers an Ajax call
+      function fetchAllData() {
+        fetch('./api/contacts')
+                .then(
+                        function (response) {
+                          // handle the error
+                          if (response.status !== 200) {
+                            document.querySelector("#data").innerHTML = 'Looks like there was a problem. Status Code: ' +
+                                    response.status;
+                            return;
+                          }
+
+                          // Examine the response and generate the HTML
+                          response.json().then(function (data) {
+                            if (data.error)
+                              document.querySelector("#data").innerHTML = "Some error occured, is the database initialized?";
+                            else {
+                              let html = '';
+                              for (i in data) {
+                                html += "<li>" + data[i].firstName + " " + data[i].lastName ;
+                                html += "</li>"
+                              }
+                              // display the HTML
+                              document.querySelector("#data").innerHTML = html;
+                            }
+
+                          });
+                        }
+                )
+                .catch(function (err) {
+                  // need to display error message!
+                  document.querySelector("#data").innerHTML = 'Fetch Error :' . err;
+                  console.log('Fetch Error :', err);
+                });
+      };
+
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector("#getdata").addEventListener("click", fetchAllData);
+      }, false);
+
+    })();
+
+  </script>
+
+
+  <h1><%= title %></h1>
+    <p>Populate the database:</p>
+
+  <form action="/action/add" method="post">
+    <div class="field">
+      <label>First Name</label>
+      <div class="control">
+        <input class="input" type="text" name="firstName">
+      </div>
+    </div>
+    <div class="field">
+      <label>Last Name</label>
+      <div class="control">
+        <input class="input" type="text" name="lastName">
+      </div>
+    </div>
+    <div class="field">
+      <label>Phone</label>
+      <div class="control">
+        <input class="input" type="text" name="phone">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-success">Save</button>
+      </div>
+    </div>
+  </form>
+
+    <button id="getdata">Show all DB contents</button>
+    <p>Data will be displayed below:</p>
+    <div id="data">
+    </div>
+
+  <h3>Instruction for creating a sqlite project</h3>
+  <pre>
+Based on the tutorial: https://stackabuse.com/using-sequelize-js-and-sqlite-in-an-express-js-app/
+
+steps required to create a sqlite / sequelize project:
+
+1/  npm install --save express body-parser sequelize sequelize-cli sqlite3 nodemon
+
+2/  node_modules/.bin/sequelize init
+
+       ->  create the directories config, migrations, models, and seeders
+        config/index.js - this defines the connection parameters and sql dialect
+        migrations - contains migration scripts to manage the versioning of the schema
+        models - contains the data models you use to interact with the database within your application code
+        seeders - contains scripts to populate your database with initial data
+
+3/ edit the file config/config.json and replace it with
+
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite3"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite3"
+  }
+}
+
+
+It will create and use a SQLite database file called database.sqlite3 in the root of the project.
+
+
+4/ node_modules/.bin/sequelize model:generate --name Contact --attributes firstName:string,lastName:string,phone:string,email:string
+
+  -> create a model / table for Contact
+
+5.  node_modules/.bin/sequelize db:migrate
+  ->  run the migration so that the SQLite database will contain the contacts table
+
+
+  </pre>
+
+  </body>
+</html>
