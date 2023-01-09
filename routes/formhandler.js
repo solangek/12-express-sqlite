@@ -18,7 +18,7 @@ router.post('/add', (req, res) => {
             else
                 console.log(`other error ${err}`);
 
-            res.render('added', {message: "some error occured (we should give precise information here)"})
+            res.render('added', {message: `input validation error: ${err}`});
         })
 });
 router.get('/add', (req, res) => {

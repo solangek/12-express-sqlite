@@ -17,18 +17,11 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING,
-        allowNull: false, // this validation was added manually (don't forget to rerun the migration command after making changes to the migration file)
-        validate: {
-            notEmpty: true, // this was added manually: forbid empty strings (note that this is different from null)
-            isNumeric: true
-        }
+        allowNull: false, // this validation was added manually (DB level validation) (don't forget to rerun the migration command after making changes to the migration file)
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
-        validate: {
-          isEmail: true
-        } // this was added manually (look for more options here: https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/)
+        unique: true, // this validation was added manually (DB level validation)
       },
       createdAt: {
         allowNull: false,

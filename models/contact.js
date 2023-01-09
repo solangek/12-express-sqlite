@@ -19,8 +19,14 @@ module.exports = (sequelize, DataTypes) => {
   Contact.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    email: DataTypes.STRING
+    phone: { type: DataTypes.STRING,
+      validate: { // sequelize level validation
+        isNumeric: true // this was added manually: forbid empty strings (note that this is different from null)
+      }},
+    email: { type: DataTypes.STRING,
+      validate: { // sequelize level validation
+        isEmail: true // this was added manually: forbid empty strings (note that this is different from null)
+      }}
   }, {
     sequelize,
     modelName: 'Contact',
