@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'SQL demo' });
+  res.render('index', { title: 'SQL demo (using sequelize-cli)' });
 });
 
 module.exports = router;
