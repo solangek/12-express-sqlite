@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     phone: { type: DataTypes.STRING,
       validate: { // sequelize level validation
-        isNumeric: true // this was added manually: forbid empty strings (note that this is different from null)
+        isNumeric: true // this was added manually
       }},
     email: { type: DataTypes.STRING,
       validate: { // sequelize level validation
-        isEmail: true // this was added manually: forbid empty strings (note that this is different from null)
+        isEmail: true // this was added manually
       }}
   }, {
     sequelize,
