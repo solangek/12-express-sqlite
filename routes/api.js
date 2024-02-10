@@ -18,23 +18,23 @@ router.get('/contacts', (req, res) => {
         .catch((err) => {
             console.log('There was an error querying contacts', JSON.stringify(err))
             err.error = 1; // some error code for client side
-            return res.send(err)
+            return res.status(400).send(err) // send the error to the client
         });
 });
 
-router.post('/search/:lastName', (req, res) => {
-    return db.Contact.findAll({where: {lastName: req.body.lastName}})
+router.get('/contacts/:lastName', (req, res) => {
+    return db.Contact.findAll({where: {lastName: req.params.lastName}})
         .then((contacts) => res.send(contacts))
         .catch((err) => {
             console.log('There was an error querying contacts', JSON.stringify(err))
-            return res.send(err)
+            return res.status(400).send(err)
         });
 });
 
 router.post('/contacts', (req, res) => {
     const { firstName, lastName, phone } = req.body
     return db.Contact.create({ firstName, lastName, phone })
-        .then((contact) => res.send(contact))
+        .then((contact) => res.status(201).send(contact))
         .catch((err) => {
             console.log('*** error creating a contact', JSON.stringify(contact))
             return res.status(400).send(err)
@@ -45,7 +45,7 @@ router.delete('/contacts/:id', (req, res) => {
     const id = parseInt(req.params.id);
     return db.Contact.findById(id)
         .then((contact) => contact.destroy({ force: true }))
-        .then(() => res.send({ id }))
+        .then(() => res.status(204).send())
         .catch((err) => {
             console.log('***Error deleting contact', JSON.stringify(err))
             res.status(400).send(err)
