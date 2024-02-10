@@ -11,9 +11,7 @@ Route	Method	Functionality
 var express = require('express');
 var router = express.Router();
 
-const db = require('../models'); //contain the Contact model, which is accessible via db.Contact
-
-
+const db = require('../models');
 router.get('/contacts', (req, res) => {
     return db.Contact.findAll()
         .then((contacts) => res.send(contacts))

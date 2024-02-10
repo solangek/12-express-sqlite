@@ -3,7 +3,7 @@ var router = express.Router();
 
 const Sequelize = require('sequelize');
 
-const db = require('../models'); //contain the Contact model, which is accessible via db.Contact
+const db = require('../models');
 
 router.post('/add', (req, res) => {
     const { firstName, lastName, phone, email } = req.body; // req.body.firstName, req.body.lastName, req.body.phone
@@ -21,6 +21,11 @@ router.post('/add', (req, res) => {
             res.render('added', {message: `input validation error: ${err}`});
         })
 });
+
+router.use(/admin|login/, (req, res, next) => {
+    //......
+    next();
+})
 router.get('/add', (req, res) => {
     res.redirect('/'); // redirect to the home page
 });

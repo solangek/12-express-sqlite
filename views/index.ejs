@@ -56,21 +56,11 @@
 
   <h3>Instruction for creating a sqlite project</h3>
   <pre>
-Based on the tutorial: https://stackabuse.com/using-sequelize-js-and-sqlite-in-an-express-js-app/
-
 steps required to create a sqlite / sequelize project:
 
-1/  npm install --save express body-parser sequelize sequelize-cli sqlite3 nodemon
+1/  npm install --save express sequelize sqlite3
 
-2/  node_modules/.bin/sequelize init
-
-       ->  create the directories config, migrations, models, and seeders
-        config/index.js - this defines the connection parameters and sql dialect
-        migrations - contains migration scripts to manage the versioning of the schema
-        models - contains the data models you use to interact with the database within your application code
-        seeders - contains scripts to populate your database with initial data
-
-3/ edit the file config/config.json and replace it with
+2/ edit the file config/config.json and replace it with your own configuration:
 
 {
   "development": {
@@ -87,16 +77,11 @@ steps required to create a sqlite / sequelize project:
   }
 }
 
+3/ make sure you have the following code in your routes files where you need the Model classes:
+const db = require('../models');
+const User = db.user; // for example
 
 It will create and use a SQLite database file called database.sqlite3 in the root of the project.
-
-
-4/ node_modules/.bin/sequelize model:generate --name Contact --attributes firstName:string,lastName:string,phone:string,email:string
-
-  -> create a model / table for Contact
-
-5.  node_modules/.bin/sequelize db:migrate
-  ->  run the migration so that the SQLite database will contain the contacts table
 
 
   </pre>
