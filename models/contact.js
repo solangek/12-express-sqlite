@@ -11,9 +11,9 @@ module.exports = (sequelize) => {
      */
     static associate(models) {
       // relations can be defined here, for example:
-      // Contact.hasMany(models.Orders, {
-      //   foreignKey: 'contact_id'
-      // })
+      Contact.hasMany(models.Order, {
+        foreignKey: 'contact_id'
+      })
     }
   }
   Contact.init({

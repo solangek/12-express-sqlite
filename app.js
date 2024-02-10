@@ -25,6 +25,15 @@ app.use('/', indexRouter);
 app.use('/action', formRoute);
 app.use('/api', apiRouter);
 
+const db = require('./models/index');
+// create the tables if don't exist
+db.sequelize.sync().then(() => {
+  console.log('Database Synced');
+}).catch((err) => {
+  console.log('Error syncing database');
+  console.log(err);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
