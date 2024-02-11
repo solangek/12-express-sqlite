@@ -1,12 +1,10 @@
 # 12-express-sqlite
 
-A sample sqlite project allowing saving Contact cards into a database.
-
-steps required to create a sqlite / sequelize project:
+A sample sqlite project allowing saving Contact cards into a database, using Sequelize ORM with SQLite, and Express.
 
 1/  npm install --save express sequelize sqlite3
 
-2/ edit the file config/config.json and replace it with your own configuration:
+2/ the file config/config.json can be edited to configure the database connection. The default content is as follows:
 <pre>
 {
     "development": {
@@ -26,6 +24,7 @@ steps required to create a sqlite / sequelize project:
 
 3/ make sure you have the following code in your routes files where you need the Model classes:
 const db = require('../models');
-const User = db.user; // for example
+const Contact = db.Contact; // for example
 
-It will create and use a SQLite database file called database.sqlite3 in the root of the project.
+Execution will create and use a SQLite database file called database.sqlite3 in the root of the project.
+You can view the SQLite contents using the DB Browser for SQLite tool (https://sqlitebrowser.org/) or any other SQLite tool.

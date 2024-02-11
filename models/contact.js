@@ -21,7 +21,6 @@ module.exports = (sequelize) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false, // constraint level validation (SQL level validation)
-      unique: true,
       validate: { // sequelize level validation
             isAlpha: true,
       }
@@ -34,7 +33,8 @@ module.exports = (sequelize) => {
     email: {
       type: DataTypes.STRING,
       validate: { // sequelize level validation
-        isEmail: true
+        isEmail: true,
+        unique: true,
       }}
   }, {
     sequelize, // We need to pass the connection instance
