@@ -32,10 +32,11 @@ module.exports = (sequelize) => {
       }},
     email: {
       type: DataTypes.STRING,
+      unique: true,
       validate: { // sequelize level validation
-        isEmail: true,
-        unique: true,
-      }}
+        isEmail: true
+      }},
+    timePlaced: { type: DataTypes.TIME, defaultValue: DataTypes.NOW }
   }, {
     sequelize, // We need to pass the connection instance
     modelName: 'Contact',
