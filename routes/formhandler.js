@@ -16,7 +16,10 @@ router.post('/add', (req, res) => {
     let u = db.Contact.build({ firstName: firstName, lastName: lastName, phone: phone, email: email });
 
     return u.save()
-        .then((contact) => res.render('added', {message: "The contact was added successfully!"}))
+        .then((contact) =>
+            res.render('added', {message: "The contact was added successfully!"})
+            // res.redirect('/') /* another option is to redirect to some page - avoid resubmission of the form */
+        )
         .catch((err) => {
             // extensive error handling can be done here - you don't always need such a detailed error handling
             if (err instanceof Sequelize.ValidationError) {

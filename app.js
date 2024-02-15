@@ -1,14 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
-var formRoute = require('./routes/formhandler');
+/* my routes */
+const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
+const formRoute = require('./routes/formhandler');
+/* end of my routes */
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,10 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+/* my routes */
 app.use('/', indexRouter);
 app.use('/action', formRoute);
 app.use('/api', apiRouter);
+/* end of my routes */
 
 const db = require('./models/index');
 // create the tables if don't exist
@@ -33,6 +36,13 @@ db.sequelize.sync().then(() => {
   console.log('Error syncing database');
   console.log(err);
 });
+db.Contact.findOrCreate({ firstName: 'John', lastName: 'Doe', phone: '5555553344', email: 'foo@bar.com'})
+    .then((contact) => {
+        console.log('Contact created');
+    }).catch((err) => {
+        console.log('Error creating contact');
+        console.log(err);
+    });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,6 @@
 (function () {
 
-    const ERR_GENERAL = "Som error occured, please try again later.";
+    const ERR_GENERAL = "Some error occured, please try again later.";
 
     /**
      * example of fetch based on async/await syntax
