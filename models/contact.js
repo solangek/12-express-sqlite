@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
       }},
     email: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: true, // constraint level validation (SQL level validation)
       validate: { // sequelize level validation
         isEmail: true
       }}

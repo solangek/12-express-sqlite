@@ -1,5 +1,5 @@
 (function () {
-
+    const URL = './api/contacts';
     const ERR_GENERAL = "Some error occured, please try again later.";
 
     /**
@@ -10,7 +10,8 @@
     async function fetchAndDisplayContacts() {
         const dataElement = document.getElementById("data")
         try {
-            const response = await fetch('./api/contacts');
+
+            const response = await fetch(URL);
             if (response.status !== 200)
                 throw new Error(response.statusText);
 
@@ -22,7 +23,10 @@
         }
     }
 
-    // same function with fetch and then syntax
+    /**
+     * example of fetch based on promise syntax
+     *
+     */
     function fetchAndDisplayContactsThen() {
         fetch('./api/contacts')
             .then((response) => {

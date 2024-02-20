@@ -43,7 +43,7 @@ router.post('/contacts', (req, res) => {
 
 router.delete('/contacts/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    return db.Contact.findById(id)
+    return db.Contact.findByPk(id)
         .then((contact) => contact.destroy({ force: true }))
         .then(() => res.status(204).send())
         .catch((err) => {
@@ -54,7 +54,7 @@ router.delete('/contacts/:id', (req, res) => {
 
 router.put('/contacts/:id', (req, res) => {
     const id = parseInt(req.params.id)
-    return db.Contact.findById(id)
+    return db.Contact.findByPk(id)
         .then((contact) => {
             const { firstName, lastName, phone } = req.body
             return contact.update({ firstName, lastName, phone })

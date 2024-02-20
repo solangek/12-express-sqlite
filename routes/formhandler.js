@@ -34,6 +34,7 @@ router.post('/add', (req, res) => {
 
 router.get('/add', (req, res) => {
     res.redirect('/'); // redirect to the home page
+    // res.render(...); or we could of course render a html page
 });
 
 module.exports = router;

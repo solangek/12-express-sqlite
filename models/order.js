@@ -17,6 +17,10 @@ module.exports = (sequelize) => {
         });
         }
     }
+
+    /**
+     * Here we define the model attributes (fields)
+     */
     Order.init({
             contact_id: DataTypes.INTEGER,
             orderDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, // you can set a default value

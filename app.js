@@ -32,17 +32,15 @@ const db = require('./models/index');
 // create the tables if don't exist
 db.sequelize.sync().then(() => {
   console.log('Database Synced');
-}).catch((err) => {
-  console.log('Error syncing database');
-  console.log(err);
+}).then(() =>
+    db.Contact.create({ firstName: 'John', lastName: 'Doe', phone: '5555553344', email: 'foo@bar.com'})
+        .then((contact) => {
+            console.log('Contact created');
+        })
+    ).catch((err) => {
+    console.log('Error: ', err);
 });
-db.Contact.findOrCreate({ firstName: 'John', lastName: 'Doe', phone: '5555553344', email: 'foo@bar.com'})
-    .then((contact) => {
-        console.log('Contact created');
-    }).catch((err) => {
-        console.log('Error creating contact');
-        console.log(err);
-    });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
