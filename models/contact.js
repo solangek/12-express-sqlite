@@ -30,11 +30,13 @@ const Contact = sequelize.define('Contact', {
 });
 
 Contact.hasMany(Order, {
-    foreignKey: 'contact_id'
+    // optionally define the relation here
+    //foreignKey: 'contact_id'
   });
 
 Order.belongsTo(Contact, {
-  foreignKey: 'contact_id'
+  // optionally define the relation here
+  //foreignKey: 'contact_id'
 });
 
 module.exports = { Contact, Order };

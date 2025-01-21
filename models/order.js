@@ -10,7 +10,8 @@ const { DataTypes } = require('sequelize');
  * @type {ModelCtor<Model>}
  */
 const Order = sequelize.define('Order', {
-    contact_id: DataTypes.INTEGER,
+    // optionally define the relation here
+    // contact_id: DataTypes.INTEGER,
     orderDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     orderAmount: { type: DataTypes.DECIMAL, defaultValue: 1.0 },
     orderStatus: {

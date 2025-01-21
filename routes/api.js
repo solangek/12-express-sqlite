@@ -54,6 +54,9 @@ router.delete('/contacts/:id', (req, res) => {
         })
 });
 
+/* example URL:
+DELETE with url : http://localhost:3000/api/contacts/1
+ */
 router.put('/contacts/:id', (req, res) => {
     const id = parseInt(req.params.id)
     return Contact.findByPk(id)
